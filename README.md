@@ -1,6 +1,8 @@
 # crystabit
 
-TODO: Write a description here
+CaaS (component-as-a-service) CPU emulator, written in functional-style Crystal using TDD.
+
+Definitely a good learning experience.
 
 ## Installation
 
@@ -16,7 +18,7 @@ TODO: Write development instructions here
 
 ## Contributing
 
-1. Fork it (<https://github.com/your-github-user/crystabit/fork>)
+1. Fork it (<https://github.com/mmKALLL/crystabit/fork>)
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -24,4 +26,4 @@ TODO: Write development instructions here
 
 ## Contributors
 
-- [your-github-user](https://github.com/your-github-user) Esa Koskinen - creator, maintainer
+- \[[mmKALLL](https://github.com/mmKALLL)\] Esa Koskinen - creator, maintainer
