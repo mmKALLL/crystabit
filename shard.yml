@@ -1,0 +1,13 @@
+name: crystabit
+version: 0.1.0
+
+authors:
+  - Esa Koskinen <koskinen_e@worksap.co.jp>
+
+targets:
+  crystabit:
+    main: src/crystabit.cr
+
+crystal: 0.25.0
+
+license: MIT
