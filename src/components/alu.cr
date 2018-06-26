@@ -12,19 +12,20 @@ module ALU
   end
 
   OP_HASH = {
-    0 => ->(A : UInt64, B : UInt64) { 0 },
-    1 => ->(A : UInt64, B : UInt64) { A + B },
-    2 => ->(A : UInt64, B : UInt64) { A - B },
+    0 => ->(a : UInt64, b : UInt64) { 0 },
+    1 => ->(a : UInt64, b : UInt64) { A + B },
+    2 => ->(a : UInt64, b : UInt64) { A - B },
   }
 
   # TODO: Full documentation
-  # Run an operation on two operands (A, B).
-  def run_op(A: UInt64, B: UInt64, opcode: UInt64) {
+  # Run an operation on two operands (a, b).
+  def run_op(a : UInt64, b : UInt64, opcode : UInt64)
     op = OP_HASH[opcode]
-    raise UnsupportedOpcodeException if op.nil?
-    return op.call(A, B)
-  }
+    raise UnsupportedOpcodeException.new if op.nil?
+    return op.call(a, b)
+  end
 
-  def run_op_signed(A: Int64, B: Int64, opcode: UInt64) {
-    # TODO: Convert A and B to UInt64, call run_op, then convert result.
-  }
+  def run_op_signed(a : Int64, b : Int64, opcode : UInt64)
+    # TODO: Convert a and b to UInt64, call run_op, then convert result.
+  end
+end
