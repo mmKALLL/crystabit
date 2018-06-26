@@ -12,6 +12,7 @@ module ALU
   end
 
   OP_HASH = {
+    0 => ->(A : UInt64, B : UInt64) { 0 },
     1 => ->(A : UInt64, B : UInt64) { A + B },
     2 => ->(A : UInt64, B : UInt64) { A - B },
   }
