@@ -1,4 +1,5 @@
 module ALU
+  #extend self # FIXME: Does not work without extend self??
 
   # Raised when the given operation is not defined in OP_HASH.
   #
@@ -13,19 +14,19 @@ module ALU
 
   OP_HASH = {
     0 => ->(a : UInt64, b : UInt64) { 0 },
-    1 => ->(a : UInt64, b : UInt64) { A + B },
-    2 => ->(a : UInt64, b : UInt64) { A - B },
+    1 => ->(a : UInt64, b : UInt64) { a + b },
+    2 => ->(a : UInt64, b : UInt64) { a - b },
   }
 
   # TODO: Full documentation
   # Run an operation on two operands (a, b).
-  def run_op(a : UInt64, b : UInt64, opcode : UInt64)
+  def run_op(a : UInt64, b : UInt64, opcode : UInt64) : UInt64
     op = OP_HASH[opcode]
     raise UnsupportedOpcodeException.new if op.nil?
     return op.call(a, b)
   end
 
-  def run_op_signed(a : Int64, b : Int64, opcode : UInt64)
+  def run_op_signed(a : Int64, b : Int64, opcode : UInt64) : Int64
     # TODO: Convert a and b to UInt64, call run_op, then convert result.
   end
 end
