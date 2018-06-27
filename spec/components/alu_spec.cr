@@ -8,12 +8,15 @@ describe ALU do
     end
 
     describe "opcode 1 (sum)" do
-      it "should sum two UInt64 values" do
+      it "should sum two values" do
         ALU.run_op(0, 1, 1).should eq 1
         ALU.run_op(123, 456, 1).should eq 579
         ALU.run_op(2, 7, 1).should eq 9
       end
-      it "should handle overflow (as in crystal??? or raise error? or using run_op overload?)" do
+      it "should handle all integer types" do
+        # TODO
+      end
+      it "should handle sum overflow as in crystal" do
         # TODO
       end
     end
@@ -24,10 +27,12 @@ describe ALU do
         ALU.run_op(20, 15, 2).should eq 5
         ALU.run_op(2, 7, 2).should eq -5 # FIXME: undefined for UInt64
       end
-    end
-
-    it "should raise (some exception???) on negative input of UInt params" do
-      # TODO
+      it "should handle all integer types" do
+        # TODO
+      end
+      it "should handle negative values and underflow as in crystal" do
+        # TODO
+      end
     end
 
     it "should raise UnsupportedOpcodeException on unknown opcode" do
@@ -38,10 +43,10 @@ describe ALU do
 
     it "should raise UnsupportedOpcodeException on too large opcode" do
       expect_raises ALU.UnsupportedOpcodeException do
-        ALU.run_op(2, 7, 128_i8)
+        ALU.run_op(2, 7, 127_i8 + 127_i8)
       end
       expect_raises ALU.UnsupportedOpcodeException do
-        ALU.run_op(2, 7, 256_u8)
+        ALU.run_op(2, 7, 255_u8)
       end
       expect_raises ALU.UnsupportedOpcodeException do
         ALU.run_op(2, 7, 2147483648)
@@ -54,14 +59,8 @@ describe ALU do
       end
     end
 
-    describe "type overload macro" do
-      it "should work on all unsigned integer sizes" do
-        # TODO
-      end
-      it "should work on all signed integer sizes" do
-
-      end
+    it "should ensure that parameters are the same type (size/width/sign)" do
+      # TODO
     end
-
   end
 end
