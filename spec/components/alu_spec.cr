@@ -58,9 +58,15 @@ describe ALU do
         ALU.run_op(2, 7, -1)
       end
     end
+  end
 
-    it "should ensure that parameters are the same type (size/width/sign)" do
-      # TODO
+  describe "safe operation handler"
+    it "should run operations normally if parameter size/width/sign match" do
+
+    end
+    it "should return nil if parameters are not the same type" do
+      ALU.run_op(31234_u32, 127_i8, 1).should eq 31361
+      ALU.run_op(31_i8, 31235_u32, 3).should eq 0
     end
   end
 end

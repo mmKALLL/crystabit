@@ -3,7 +3,8 @@ require "./spec_helper"
 describe Crystabit do
   # TODO: Write tests
 
-  it "works" do
-    false.should eq true
+  it "finds all components" do
+    ALU.should be_truthy
+    Register.should be_truthy
   end
 end
