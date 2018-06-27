@@ -12,17 +12,25 @@ module ALU
     end
   end
 
-  OP_HASH = {
-    0 => ->(a : Int, b : Int) { 0 },
-    1 => ->(a : Int, b : Int) { a + b },
-    2 => ->(a : Int, b : Int) { a - b },
-  }
+  # TODO: Workaround for compiler regression; use ->(a : Int, b : Int) once it is available.
+  {% begin %}
+    {% int = "Int8 | Int16 | Int32 | Int64 | Int128 | UInt8 | UInt16 | UInt32 | UInt64 | UInt128" %}
+    {% int = int.id %}
+
+    OP_HASH = {
+      0 => ->(a : {{int}}, b : {{int}}) { 0 },
+      1 => ->(a : {{int}}, b : {{int}}) { a + b },
+      2 => ->(a : {{int}}, b : {{int}}) { a - b },
+    }
+  {% end %}
 
   # TODO: Full documentation
-  # Run an operation on two {{int}} operands (a, b). Parameters should be the same type.
-  def run_op(a : Int, b : Int, opcode : Int) : Int forall Int
+  # Run an operation on two integer operands (a, b). Parameters should be the same type.
+  def run_op(a : Int, b : Int, opcode : Int) : Int
     op = OP_HASH[opcode]
     raise UnsupportedOpcodeException.new if op.nil?
     return op.call(a, b)
   end
+
+  # TODO: handle FPU functionality too?
 end
