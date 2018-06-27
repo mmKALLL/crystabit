@@ -36,25 +36,25 @@ describe ALU do
     end
 
     it "should raise UnsupportedOpcodeException on unknown opcode" do
-      expect_raises ALU.UnsupportedOpcodeException do
+      expect_raises ALU::UnsupportedOpcodeException do
         ALU.run_op(2, 7, 12347898)
       end
     end
 
     it "should raise UnsupportedOpcodeException on too large opcode" do
-      expect_raises ALU.UnsupportedOpcodeException do
-        ALU.run_op(2, 7, 127_i8 + 127_i8)
+      expect_raises ALU::UnsupportedOpcodeException do
+        ALU.run_op(2, 7, 127_i8 + 1_i8)
       end
-      expect_raises ALU.UnsupportedOpcodeException do
+      expect_raises ALU::UnsupportedOpcodeException do
         ALU.run_op(2, 7, 255_u8)
       end
-      expect_raises ALU.UnsupportedOpcodeException do
+      expect_raises ALU::UnsupportedOpcodeException do
         ALU.run_op(2, 7, 2147483648)
       end
     end
 
     it "should raise UnsupportedOpcodeException on negative opcode" do
-      expect_raises ALU.UnsupportedOpcodeException do
+      expect_raises ALU::UnsupportedOpcodeException do
         ALU.run_op(2, 7, -1)
       end
     end
