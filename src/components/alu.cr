@@ -31,6 +31,7 @@ module ALU
     end
 
   {% end %}
+  
   # TODO: handle FPU functionality too?
 
   # Raised when the given operation is not defined in OP_HASH.

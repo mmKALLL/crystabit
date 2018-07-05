@@ -4,17 +4,37 @@ describe ALU do
   describe "operation handler" do
 
     describe "opcode 0 (return zero)" do
-      # TODO
+      it "should return 0 regardless of values" do
+        ALU.run_op(0, 1, 0).should eq 0
+        ALU.run_op(0, 0, 0).should eq 0
+        ALU.run_op(123, 456, 0).should eq 0
+        ALU.run_op(2, 7, 0).should eq 0
+        ALU.run_op(-2, 5, 0).should eq 0
+      end
     end
 
     describe "opcode 1 (sum)" do
       it "should sum two values" do
+        ALU.run_op(0, 0, 1).should eq 0
         ALU.run_op(0, 1, 1).should eq 1
         ALU.run_op(123, 456, 1).should eq 579
         ALU.run_op(2, 7, 1).should eq 9
       end
+      it "should sum negative values" do
+        ALU.run_op(-2, 5, 1).should eq 3
+        ALU.run_op(-0, 0, 1).should eq -0
+      end
       it "should handle all integer types" do
-        # TODO
+        ALU.run_op(2_i8, 7_i8, 1).should eq 9
+        ALU.run_op(32760_i16, 7_i16, 1).should eq 32767
+        ALU.run_op(2_147_483_640_i32, 7_i32, 1).should eq 2_147_483_647
+        ALU.run_op(2_i64, 7_i64, 1).should eq 9
+        ALU.run_op(2_i128, 7_i128, 1).should eq 9
+        ALU.run_op(2_u8, 7_u8, 1).should eq 9
+        ALU.run_op(2_u16, 7_u16, 1).should eq 9
+        ALU.run_op(2_u32, 7_u32, 1).should eq 9
+        ALU.run_op(2_u64, 7_u64, 1).should eq 9
+        ALU.run_op(2_u128, 7_u128, 1).should eq 9
       end
       it "should handle sum overflow as in crystal" do
         # TODO
@@ -57,6 +77,10 @@ describe ALU do
       expect_raises ALU::UnsupportedOpcodeException do
         ALU.run_op(2, 7, -1)
       end
+    end
+
+    it "should handle mixed integer types as in crystal" do
+
     end
   end
 
