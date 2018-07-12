@@ -5,7 +5,7 @@ describe CPU do
     describe ", WASM mode" do
       it "should execute all instructions" do
         # See: https://github.com/sunfishcode/wasm-reference-manual/blob/master/WebAssembly.md#instructions
-        CPU.exec(0x01, Nil, []) # opcode, tuple of inputs, register state
+        CPU.exec(0x01, Nil, [] of Int64) # opcode, tuple of inputs, register state
         # TODO
       end
       it "should run mnemonic assembly in text format" do
