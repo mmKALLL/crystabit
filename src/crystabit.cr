@@ -1,5 +1,5 @@
 require "./crystabit/*"
-require "./components/*"
+require "./components/**"
 
 # TODO: Write documentation for `Crystabit`
 module Crystabit
