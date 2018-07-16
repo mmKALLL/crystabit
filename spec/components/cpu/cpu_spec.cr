@@ -68,9 +68,9 @@ describe CPU do
               ))
             )
             WASM
-        CPU.run(program).should eq
+        CPU.run(program).should eq \
         [
-            {"locals.res", nil},
+            {"locals.res", 0_i32}, # FIXME: Default value unspecified, check WASM spec for `local` mnemonic.
             {"locals.res", 7_i32},
             {"locals.res", 5_i32}
         ]

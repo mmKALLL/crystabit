@@ -101,8 +101,8 @@ describe ALU do
     it "should handle operations with random values" do
       r = Random.new
       {% for i in (1..1000) %}
-        op_1_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
-        op_2_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
+        op_1_{{i.id}} = r.rand(Int64::MIN..Int64::MAX)
+        op_2_{{i.id}} = r.rand(Int64::MIN..Int64::MAX)
         ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x01).should eq (op_1_{{i.id}} + op_2_{{i.id}})
         ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x02).should eq (op_1_{{i.id}} - op_2_{{i.id}})
       {% end %}
