@@ -50,7 +50,6 @@ describe ALU do
         ALU.run_op(2_u32, 7_u32, 1).should eq 9
         ALU.run_op(2_u64, 7_u64, 1).should eq 9
         ALU.run_op(2_u128, 7_u128, 1).should eq 9
-        # TODO: Randomized correctness/stress tests with type-testcase macros (longer compile?).
       end
       it "should handle sum overflow as in crystal" do
         # TODO
@@ -96,8 +95,19 @@ describe ALU do
     end
 
     it "should handle mixed integer types as in crystal" do
-
+      # TODO
     end
+
+    it "should handle operations with random values" do
+      r = Random.new
+      {% for i in (1..1000) %}
+        op_1_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
+        op_2_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
+        ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x01).should eq (op_1_{{i.id}} + op_2_{{i.id}})
+        ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x02).should eq (op_1_{{i.id}} - op_2_{{i.id}})
+      {% end %}
+    end
+
   end
 
   describe "safe operation handler" do

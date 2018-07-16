@@ -4,10 +4,14 @@ version: 0.1.0
 authors:
   - Esa Koskinen <esakoskin2@gmail.com>
 
+crystal: 0.25.1
+
+license: MIT
+
 targets:
   crystabit:
     main: src/crystabit.cr
 
-crystal: 0.25.0
-
-license: MIT
+dependencies:
+  kemal:
+    github: kemalcr/kemal
