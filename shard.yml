@@ -15,3 +15,7 @@ targets:
 dependencies:
   kemal:
     github: kemalcr/kemal
+  spec-kemal:
+    github: kemalcr/spec-kemal
+  crecto:
+    github: fridgerator/crecto

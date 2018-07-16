@@ -28,9 +28,9 @@ describe CPU do
             WASM
         CPU.run(program).should eq
         [
-            {locals.res, Nil},
-            {locals.res, 7_i32},
-            {locals.res, 5_i32}
+            {"locals.res", Nil},
+            {"locals.res", 7_i32},
+            {"locals.res", 5_i32}
         ]
       end
     end
