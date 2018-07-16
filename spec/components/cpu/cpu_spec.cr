@@ -13,13 +13,13 @@ describe CPU do
 
         it "0x01: nop" do
           CPU.exec(0x01, nil, [] of Int64).should eq nil
-          expect_raises ALU::UnsupportedOpcodeException do
+          expect_raises CPU::IllegalNumberOfParametersException do
             CPU.exec(0x01, [3, 87123], [1, 2, 3, 12387])
           end
         end
 
         it "0x1a: drop" do
-          expect_raises ALU::UnsupportedOpcodeException do
+          expect_raises CPU::IllegalNumberOfParametersException do
             CPU.exec(0x1a, nil, [] of Int64)
             CPU.exec(0x1a, [3, 87123, 213], [1, 2, 3, 12387])
           end
@@ -74,6 +74,21 @@ describe CPU do
             {"locals.res", 7_i32},
             {"locals.res", 5_i32}
         ]
+      end
+
+      it "should raise UnsupportedOpcodeException on too large opcode" do
+        expect_raises CPU::UnsupportedOpcodeException do
+          CPU.exec(0x12314123, [] of Int32, [] of Int32)
+        end
+        expect_raises CPU::UnsupportedOpcodeException do
+          CPU.exec(0x100, [123, 2] of Int32, [1, 2, 3] of Int32)
+        end
+      end
+
+      it "should raise UnsupportedOpcodeException on negative opcode" do
+        expect_raises CPU::UnsupportedOpcodeException do
+          CPU.exec(-1, [] of Int32, [] of Int32)
+        end
       end
     end
   end
