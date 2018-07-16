@@ -2,7 +2,7 @@ module CPU
   extend self # All functions appended to CPU.self.
 
   # Executes a single operation and returns result as array of integers. Pure function. No memory access or state changes allowed.
-  def exec(opcode : Int, inputs : Array(Int), registers : Array(Int)) : Array(Int)?
+  def exec(opcode : Int, inputs : Array(Int)?, registers : Array(Int)) : Array(Int)?
     return Nil
   end
 

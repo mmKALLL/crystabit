@@ -6,7 +6,7 @@ describe CPU do
       it "should execute all instructions" do
         # See: https://github.com/sunfishcode/wasm-reference-manual/blob/master/WebAssembly.md#instructions
         # opcode, array of inputs, register state
-        CPU.exec(0x01, Nil, [] of Int64).should eq Nil
+        CPU.exec(0x01, nil, [] of Int64).should eq nil
         # TODO
       end
       it "should run mnemonic assembly in text format" do
@@ -28,7 +28,7 @@ describe CPU do
             WASM
         CPU.run(program).should eq
         [
-            {"locals.res", Nil},
+            {"locals.res", nil},
             {"locals.res", 7_i32},
             {"locals.res", 5_i32}
         ]
