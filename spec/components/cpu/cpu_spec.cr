@@ -15,17 +15,23 @@ describe CPU do
             (local $res i32)
             (set_local $res (i32.const 7))
             (if
-              (i32.gt_s (
-                i32.add((2) (3))
-                (4)
-              ))
+              (
+                i32.gt_s
+                  (i32.add((2) (3)))
+                  (i32.const 4)
+              )
 
               (set_local $res (
                 i32.add((2) (3))
               ))
             )
             WASM
-        CPU.run(program)
+        CPU.run(program).should eq
+        [
+            {locals.res, Nil},
+            {locals.res, 7_i32},
+            {locals.res, 5_i32}
+        ]
       end
     end
   end
