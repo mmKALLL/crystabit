@@ -1,4 +1,5 @@
-require "../spec_helper"
+require "../../spec_helper"
+
 
 describe ALU do
   describe "operation handler" do
@@ -10,6 +11,18 @@ describe ALU do
         ALU.run_op(123, 456, 0).should eq 0
         ALU.run_op(2, 7, 0).should eq 0
         ALU.run_op(-2, 5, 0).should eq 0
+      end
+      it "should handle all integer types" do
+        ALU.run_op(2_i8, 7_i8, 0).should eq 0
+        ALU.run_op(32760_i16, 7_i16, 0).should eq 32767
+        ALU.run_op(2_147_483_640_i32, 7_i32, 0).should eq 2_147_483_647
+        ALU.run_op(2_i64, 7_i64, 0).should eq 0
+        ALU.run_op(2_i128, 7_i128, 0).should eq 0
+        ALU.run_op(2_u8, 7_u8, 0).should eq 0
+        ALU.run_op(2_u16, 7_u16, 0).should eq 0
+        ALU.run_op(2_u32, 7_u32, 0).should eq 0
+        ALU.run_op(2_u64, 7_u64, 0).should eq 0
+        ALU.run_op(2_u128, 7_u128, 0).should eq 0
       end
     end
 
@@ -25,12 +38,14 @@ describe ALU do
         ALU.run_op(-0, 0, 1).should eq -0
       end
       it "should handle all integer types" do
-        ALU.run_op(2_i8, 7_i8, 1).should eq 9
-        ALU.run_op(32760_i16, 7_i16, 1).should eq 32767
-        ALU.run_op(2_147_483_640_i32, 7_i32, 1).should eq 2_147_483_647
+        ALU.run_op(2_i8, 7_i8, 1).should eq 9_i8
+        ALU.run_op(32760_i16, 7_i16, 1).should eq 32767_i16
+        ALU.run_op(2_147_483_640_i32, 7_i32, 1).should eq 2_147_483_647_i32
         ALU.run_op(2_i64, 7_i64, 1).should eq 9
         ALU.run_op(2_i128, 7_i128, 1).should eq 9
-        ALU.run_op(2_u8, 7_u8, 1).should eq 9
+        # TODO: Long i128 literals not yet supported by parser.
+        # ALU.run_op(17_000_000_000__000_000_000__000_000_000__000_000_000_i128, 7_i128, 1).should eq 17_000_000_000__000_000_000__000_000_000__000_000_007_i128
+        ALU.run_op(2_u8, 7_u8, 1).should eq 9_u8
         ALU.run_op(2_u16, 7_u16, 1).should eq 9
         ALU.run_op(2_u32, 7_u32, 1).should eq 9
         ALU.run_op(2_u64, 7_u64, 1).should eq 9
@@ -80,8 +95,19 @@ describe ALU do
     end
 
     it "should handle mixed integer types as in crystal" do
-
+      # TODO
     end
+
+    it "should handle operations with random values" do
+      r = Random.new
+      {% for i in (1..1000) %}
+        op_1_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
+        op_2_{{i.id}} = r.rand(Int128::MIN..Int128::MAX)
+        ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x01).should eq (op_1_{{i.id}} + op_2_{{i.id}})
+        ALU.run_op(op_1_{{i.id}}, op_2_{{i.id}}, 0x02).should eq (op_1_{{i.id}} - op_2_{{i.id}})
+      {% end %}
+    end
+
   end
 
   describe "safe operation handler" do
