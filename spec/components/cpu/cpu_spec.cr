@@ -20,7 +20,7 @@ describe CPU do
 
         it "0x1a: drop" do
           expect_raises CPU::IllegalNumberOfParametersException do
-            CPU.exec(0x1a, nil, [] of Int64)
+            CPU.exec(0x1a, [] of Int64, [] of Int64)
             CPU.exec(0x1a, [3, 87123, 213], [1, 2, 3, 12387])
           end
           CPU.exec(0x1a, [3], [1, 2, 3, 12387]).should eq nil
@@ -57,9 +57,9 @@ describe CPU do
         it "0x7c: i64.add" do
           CPU.exec(0x7c, [2, 7], [] of Int32).should eq 9
           CPU.exec(0x7c, [2_i64, 7_i64], [] of Int64).should eq 9
-          CPU.exec_full(0x7c, [2, 7], [] of Int32).should eq {"ret": 9}
-          CPU.exec_full(0x7c, [2_i64, 7_i64], [] of Int64).should eq {"ret": 9}
-          CPU.exec_full(0x7c, [2, 7], [1, 2, 3] of Int64).should eq {"ret": 9}
+          CPU.exec_full(0x7c, [2, 7], [] of Int32).should eq Hash{"ret" => 9}
+          CPU.exec_full(0x7c, [2_i64, 7_i64], [] of Int64).should eq Hash{"ret" => 9}
+          CPU.exec_full(0x7c, [2, 7], [1, 2, 3] of Int64).should eq Hash{"ret" => 9}
         end
       end
 
