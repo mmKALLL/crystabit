@@ -25,6 +25,8 @@ describe CPU do
           end
           CPU.exec(0x1a, [3], [1, 2, 3, 12387]).should eq nil
           CPU.exec(0x1a, [12343112313123_u64], [1, 2, 3, 12387]).should eq nil
+
+          # TODO: Also test exec_full
         end
 
         it "0x21: set_local, 0x20: get_local" do
@@ -48,6 +50,16 @@ describe CPU do
           CPU.exec_full(0x20, [321], [] of Int64).should eq 3
           CPU.exec_full(0x21, [321, 4], [] of Int64).should eq nil
           CPU.exec_full(0x20, [321], [] of Int64).should eq 4
+
+          # TODO: what should exec do here?
+        end
+
+        it "0x7c: i64.add" do
+          CPU.exec(0x7c, [2, 7], [] of Int32).should eq 9
+          CPU.exec(0x7c, [2_i64, 7_i64], [] of Int64).should eq 9
+          CPU.exec_full(0x7c, [2, 7], [] of Int32).should eq {"ret": 9}
+          CPU.exec_full(0x7c, [2_i64, 7_i64], [] of Int64).should eq {"ret": 9}
+          CPU.exec_full(0x7c, [2, 7], [1, 2, 3] of Int64).should eq {"ret": 9}
         end
       end
 
@@ -70,7 +82,7 @@ describe CPU do
             WASM
         CPU.run(program).should eq \
         [
-            {"locals.res", 0_i32}, # FIXME: Default value unspecified, check WASM spec for `local` mnemonic.
+            {"locals.res", 0_i32}, # FIXME: Default value for `(local $res i32)` unspecified, check WASM spec for `local` mnemonic.
             {"locals.res", 7_i32},
             {"locals.res", 5_i32}
         ]
