@@ -35,6 +35,17 @@ describe "CPU API endpoint" do
         response.body.should eq "{\"ret\":5555}"
       end
     end
+
+    describe "params in query," do
+      it "0x7c: i64.add" do
+        get "/v1/cpu/exec?opcode=0x7c&inputs=[2,7]&registers=[]", headers: HTTP::Headers{"x-user" => "testuser"}
+        response.status_code.should eq 200
+        response.body.should eq "{\"ret\":9}"
+        get "/v1/cpu/exec?opcode=0x7c&inputs=[1234,4321]&registers=[1,2,3,4]", headers: HTTP::Headers{"x-user" => "testuser"}
+        response.status_code.should eq 200
+        response.body.should eq "{\"ret\":5555}"
+      end
+    end
   end
 
   # TODO: Malformed requests and infosec concerns
