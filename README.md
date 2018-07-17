@@ -6,11 +6,23 @@ Definitely a good learning experience.
 
 ## Installation
 
-TODO: Write installation instructions here
+```bash
+git clone git@github.com:mmKALLL/crystabit.git
+shards install
+```
 
 ## Usage
 
-TODO: Write usage instructions here
+You can run local specs with:
+```bash
+crystal spec
+```
+
+Run all specs, including Web API specs with Kemal, with:
+```bash
+KEMAL_ENV=test crystal spec
+```
+
 
 ## Development
 
