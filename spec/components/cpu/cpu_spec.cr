@@ -12,7 +12,7 @@ describe CPU do
         # opcode, array of inputs, register state
 
         it "0x01: nop" do
-          CPU.exec(0x01, nil, [] of Int64).should eq nil
+          CPU.exec(0x01, [] of Int64, [] of Int64).should eq nil
           expect_raises CPU::IllegalNumberOfParametersException do
             CPU.exec(0x01, [3, 87123], [1, 2, 3, 12387])
           end

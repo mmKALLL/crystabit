@@ -7,18 +7,18 @@ module CPU
     {% int = int.id %}
 
     # Executes a single operation and returns result as Int?. Pure function. No outside access or state changes allowed.
-    def exec(opcode : {{int}}, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : {{int}} | Nil
+    def exec(opcode : Int32, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : {{int}} | Nil
       return nil
     end
 
     # Executes a single operation, with memory access and state changes returned. CPU.exec result is in `ret` value.
-    def exec_full(opcode : {{int}}, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : Hash(String, {{int}} | Nil)
-      return {} of String => Int64
+    def exec_full(opcode : Int32, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : Hash(String, {{int}} | Nil)
+      return {} of String => {{int}} | Nil
     end
 
     # Run program, returning a chronological array of hashes containing memory accesses and state changes.
     def run(program : String) : Array(Hash(String, {{int}} | Nil))
-      return [] of Hash(String, Int64)
+      return [] of Hash(String, {{int}} | Nil)
     end
 
     # Raised when the given operation is not defined in OP_HASH.
