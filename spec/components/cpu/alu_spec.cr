@@ -114,9 +114,9 @@ describe ALU do
         ALU.run_op(4, 1, 0).should eq -1
         ALU.run_op(4, 20, 15).should eq -20
         ALU.run_op(4, 2, 7).should eq -2
-        ALU.run_op(4, 1237841_u64, 51746284_u64).should eq -1237841_u64
+        ALU.run_op(4, 1237841_u64, 51746284_u64).should eq ~1237841_u64
       end
-      it "should NOT negative UInt64 values as in crystal" do
+      it "should NOT negative values as in crystal" do
         ALU.run_op(4, -52345, -2147289329).should eq ~-52345
         ALU.run_op(4, -2147483648, -1147483648).should eq 2147403648
       end
@@ -156,8 +156,8 @@ describe ALU do
         # TODO: Iterate through list of operators
         op_1_{{i.id}} = r.rand(Int64::MIN..Int64::MAX)
         op_2_{{i.id}} = r.rand(Int64::MIN..Int64::MAX)
-        ALU.run_op(0x01).should eq (op_1_{{i.id}} + op_2_{{i.id}}, op_1_{{i.id}}, op_2_{{i.id}})
-        ALU.run_op(0x02).should eq (op_1_{{i.id}} - op_2_{{i.id}}, op_1_{{i.id}}, op_2_{{i.id}})
+        ALU.run_op(0x01, op_1_{{i.id}}, op_2_{{i.id}}).should eq (op_1_{{i.id}} + op_2_{{i.id}})
+        ALU.run_op(0x02, op_1_{{i.id}}, op_2_{{i.id}}).should eq (op_1_{{i.id}} - op_2_{{i.id}})
       {% end %}
     end
 

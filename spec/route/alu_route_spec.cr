@@ -11,10 +11,10 @@ describe "ALU API endpoint" do
       describe "params in query," do
         # Run a single op.
         it "exec" do
-          get "/v1/alu/exec?opcode=0x01&a=2&b=7", headers: HTTP::Headers{"x-user" => "testuser"}
+          get "/v1/alu/exec?opcode=0x01&a=2&b=7"#, headers: HTTP::Headers{"x-user" => "testuser"}
           response.status_code.should eq 200
           response.body.should eq "9"
-          get "/v1/cpu/exec?opcode=3&a=13&b=20", headers: HTTP::Headers{"x-user" => "testuser"}
+          get "/v1/cpu/exec?opcode=3&a=13&b=20"#, headers: HTTP::Headers{"x-user" => "testuser"}
           response.status_code.should eq 200
           response.body.should eq "4"
         end
