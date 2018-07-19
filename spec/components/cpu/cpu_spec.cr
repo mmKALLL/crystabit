@@ -2,9 +2,6 @@ require "../../spec_helper"
 
 describe CPU do
   describe "execution handler" do
-    describe ", HLE multi-input mode" do
-      # TODO
-    end
 
     describe ", WASM mode" do
       describe "should execute all instructions, with correct number of params expected," do
@@ -65,26 +62,29 @@ describe CPU do
 
       it "should run mnemonic assembly in text format" do
         program = <<-WASM
-            nop
-            (local $res i32)
-            (set_local $res (i32.const 7))
-            (if
-              (
-                i32.gt_s
-                  (i32.add((2) (3)))
-                  (i32.const 4)
-              )
+            (
+              local $res i32
+              nop
+              set_local $res (i32.const 7)
+              (if
+                (
+                  i32.gt_s
+                    (i32.add((2) (3)))
+                    (i32.const 4)
+                )
 
-              (set_local $res (
-                i32.add((2) (3))
-              ))
+                (set_local $res (
+                  i32.add((2) (3))
+                ))
+              )
+              return (get_local $res)
             )
             WASM
         CPU.run(program).should eq \
         [
-            {"locals.res", 0_i32}, # FIXME: Default value for `(local $res i32)` unspecified, check WASM spec for `local` mnemonic.
             {"locals.res", 7_i32},
-            {"locals.res", 5_i32}
+            {"locals.res", 5_i32},
+            {"results", 5_i32}
         ]
       end
 
@@ -103,5 +103,6 @@ describe CPU do
         end
       end
     end
+
   end
 end

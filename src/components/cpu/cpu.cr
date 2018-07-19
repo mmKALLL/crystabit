@@ -7,12 +7,12 @@ module CPU
     {% int = int.id %}
 
     # Executes a single operation and returns result as Int?. Pure function. No outside access or state changes allowed.
-    def exec(opcode : Int32, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : {{int}} | Nil
+    def exec(opcode : Int32, inputs : Array({{int}} | Symbol), globals : Array({{int}})) : {{int}} | Nil
       return nil
     end
 
     # Executes a single operation, with memory access and state changes returned. CPU.exec result is in `ret` value.
-    def exec_full(opcode : Int32, inputs : Array({{int}} | Symbol), registers : Array({{int}})) : Hash(String, {{int}} | Nil)
+    def exec_full(opcode : Int32, inputs : Array({{int}} | Symbol), globals : Array({{int}})) : Hash(String, {{int}} | Nil)
       return {} of String => {{int}} | Nil
     end
 

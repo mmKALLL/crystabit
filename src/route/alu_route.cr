@@ -1,7 +1,7 @@
 require "kemal"
-require "../components/cpu/cpu"
+require "../components/alu/alu"
 
-get "/v1/cpu/exec" do |env|
+get "/v1/exec" do |env|
   env.response.content_type = "application/json"
 
   begin
