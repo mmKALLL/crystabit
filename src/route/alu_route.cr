@@ -17,7 +17,7 @@ get "v1/alu/run" do |env|
   begin
     res = [] of Int
     query = env.params.query["q"]
-
+    # TODO
   rescue ex
     puts ex.message
     halt env, status_code: 500, response: Hash{"message" => ex.message}.to_json
