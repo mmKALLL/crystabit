@@ -1,4 +1,3 @@
-require "kemal"
 require "../components/cpu/cpu"
 
 get "/v1/cpu/exec" do |env|

@@ -1,9 +1,8 @@
-require "kemal"
 require "../components/alu/alu"
 
 get "/v1/alu/exec" do |env|
   begin
-    opcode = env.params.query["opcode"].to_i
+    opcode = env.params.query["opcode"].to_i # TODO: results in 500; try .as(Int64)
     a = env.params.query["a"].to_i
     b = env.params.query["b"].to_i
     halt env, status_code: 200, response: ALU.run_op(opcode, a, b)

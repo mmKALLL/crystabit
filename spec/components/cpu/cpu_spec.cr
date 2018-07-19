@@ -1,9 +1,9 @@
 require "../../spec_helper"
 
 describe CPU do
-  describe "execution handler" do
+  describe "execution handler," do
 
-    describe ", WASM mode" do
+    describe "WASM mode" do
       describe "should execute all instructions, with correct number of params expected," do
         # See: https://github.com/sunfishcode/wasm-reference-manual/blob/master/WebAssembly.md#instructions
         # opcode, array of inputs, register state
