@@ -1,17 +1,23 @@
 require "kemal"
 require "../components/alu/alu"
 
-get "/v1/exec" do |env|
-  env.response.content_type = "application/json"
-
+get "/v1/alu/exec" do |env|
   begin
-    opcode = env.params.query["opcode"]?.try &.to_i || 0x01
-    inputs = env.params.query["inputs"]?.try &.to_i || [] of Int64
-    globals = env.params.query["globals"]?.try &.to_i || [] of Int64
+    opcode = env.params.query["opcode"].to_i
+    a = env.params.query["a"].to_i
+    b = env.params.query["b"].to_i
+    ALU.run_op(opcode, a, b)
+  rescue ex
+    puts ex.message
+    halt env, status_code: 500, response: Hash{"message" => ex.message}.to_json
+  end
+end
 
-    Hash{
-      "ret" => CPU.exec(opcode, inputs, globals)
-    }.to_json
+get "v1/alu/run" do |env|
+  begin
+    res = [] of Int
+    query = env.params.query["q"]
+
   rescue ex
     puts ex.message
     halt env, status_code: 500, response: Hash{"message" => ex.message}.to_json

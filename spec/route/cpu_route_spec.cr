@@ -57,5 +57,5 @@ describe "CPU API endpoint" do
   end
 
 
-  # TODO: Malformed requests and infosec concerns
+  # TODO: Malformed requests and basic pentest
 end
