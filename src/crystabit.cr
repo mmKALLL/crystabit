@@ -1,6 +1,11 @@
+require "kemal"
+
 require "./crystabit/*"
-require "./components/*"
+require "./components/**"
+require "./route/*"
 
 # TODO: Write documentation for `Crystabit`
 module Crystabit
 end
+
+Kemal.run

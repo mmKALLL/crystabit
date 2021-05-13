@@ -12,12 +12,14 @@ module ALU
       2 => ->(a : {{int}}, b : {{int}}) { a - b },
       3 => ->(a : {{int}}, b : {{int}}) { a & b },
       4 => ->(a : {{int}}, b : {{int}}) { a | b },
+      5 => ->(a : {{int}}, b : {{int}}) { a ^ b },
+      6 => ->(a : {{int}}, b : {{int}}) { ~a },
     }
 
     # TODO: Full documentation
     # Run an operation on two integer operands (a, b).
     # Parameters should be the same type; a size/signedness mismatch results in undefined behavior.
-    def run_op(a : Int, b : Int, opcode : Int) : Int
+    def run_op(opcode : Int, a : Int, b : Int) : Int
       op = OP_HASH[opcode]?
       raise UnsupportedOpcodeException.new if op.nil?
       return op.call(a, b)
@@ -25,13 +27,13 @@ module ALU
 
     # Run an operation on two integer operands (a, b).
     # Parameter types are checked to prevent undefined behavior. Nil is returned if size/signedness has a mismatch.
-    def run_op_safe(a : Int, b : Int, opcode : Int) : {{int}} | Nil
+    def run_op_safe(opcode : Int, a : Int, b : Int) : {{int}} | Nil
       return run_op(a, b, opcode) if (typeof(a) == typeof(b) == typeof(opcode))
       return nil
     end
 
   {% end %}
-  
+
   # TODO: handle FPU functionality too?
 
   # Raised when the given operation is not defined in OP_HASH.
